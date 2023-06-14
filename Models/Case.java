@@ -20,7 +20,7 @@ public abstract class Case{
 
     public void setCoords(Integer xValue, Integer yValue) {
         this.coords.put("X", xValue);
-        this.coords.put("Y", xValue);
+        this.coords.put("Y", yValue);
     }
 
     public ArrayList<String> getCaseAppearance() {

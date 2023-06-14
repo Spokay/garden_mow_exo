@@ -2,9 +2,7 @@ import Models.*;
 import Views.JardinStringGenerator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class GardenMowApplication {
     public static void main(String[] args) {
