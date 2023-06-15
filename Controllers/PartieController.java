@@ -1,10 +1,11 @@
 package Controllers;
 
+import Builders.PartieBuilder;
 import Models.Partie;
 
 public class PartieController {
 
-    public static Partie startGame(){
-        return null;
+    public void startGame(){
+        Partie game = PartieBuilder.build();
     }
 }

@@ -3,9 +3,14 @@ package Models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Tondeuse {
+public class Tondeuse{
     Integer tondeuseNumber;
     ArrayList<HashMap<String, Integer>> coords;
+
+    public Tondeuse(Integer tondeuseNumber, ArrayList<HashMap<String, Integer>> coords) {
+        this.tondeuseNumber = tondeuseNumber;
+        this.coords = coords;
+    }
 
     public Integer getTondeuseNumber() {
         return tondeuseNumber;

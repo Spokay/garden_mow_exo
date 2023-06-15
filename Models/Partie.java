@@ -11,6 +11,14 @@ public class Partie {
 
     ArrayList<Jardin> turnsGardens;
 
+    public Partie(Integer xLength, Integer yLength, ArrayList<Tondeuse> tondeuses, HashMap<Integer, HashMap<Integer, Case>> cases) {
+        this.xLength = xLength;
+        this.yLength = yLength;
+        this.tondeuses = tondeuses;
+        this.cases = cases;
+        this.turnsGardens = new ArrayList<>();
+    }
+
     public Case getCaseByCoords(Integer xValue, Integer yValue) {
         return this.cases.get(yValue).get(xValue);
     }
