@@ -1,5 +1,9 @@
 package Models;
 
+import Models.Obstacles.Obstacle;
+import Models.Obstacles.ObstaclesTypes;
+import Models.Obstacles.Tondeuse;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,6 +12,7 @@ public class Partie {
     Integer yLength;
     HashMap<Integer, HashMap<Integer, Case>> cases;
     ArrayList<Tondeuse> tondeuses;
+    HashMap<ObstaclesTypes, ArrayList<Obstacle>> obstacles;
 
     ArrayList<Jardin> turnsGardens;
 

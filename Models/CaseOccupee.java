@@ -1,23 +1,18 @@
 package Models;
 
+import Models.Obstacles.Obstacle;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CaseOccupee extends Case{
 
-    Tondeuse tondeuse;
+    Obstacle obstacle;
 
-    public CaseOccupee(Integer yValue ,Integer xValue, Tondeuse tondeuse) {
+    public CaseOccupee(Integer yValue ,Integer xValue, Obstacle obstacle) {
         super(yValue, xValue);
         this.caseType = CaseTypes.CASE_OCCUPEE;
-        this.setTondeuse(tondeuse);
-        ArrayList<String> appearances = new ArrayList<>(
-                Arrays.asList(
-                        "        ",
-                        "   T".concat(String.valueOf(this.getTondeuse().getTondeuseNumber())).concat("   "),
-                        "        "
-                )
-        );
+        this.setObstacle(obstacle);
+        ArrayList<String> appearances = this.obstacle.getObstacleAppearance();
         this.setCaseAppearance(appearances);
     }
 
@@ -25,11 +20,11 @@ public class CaseOccupee extends Case{
         return null;
     }
 
-    public Tondeuse getTondeuse() {
-        return tondeuse;
+    public Obstacle getObstacle() {
+        return obstacle;
     }
 
-    public void setTondeuse(Tondeuse tondeuse) {
-        this.tondeuse = tondeuse;
+    public void setObstacle(Obstacle obstacle) {
+        this.obstacle = obstacle;
     }
 }

@@ -2,14 +2,17 @@ package Builders;
 
 import Configuration.GardenMowConfiguration;
 import Models.*;
+import Models.Obstacles.Obstacle;
+import Models.Obstacles.ObstaclesTypes;
+import Models.Obstacles.Tondeuse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PartieBuilder {
     public static Partie build(){
-
-        ArrayList<Tondeuse> tondeuses = TondeuseBuilder.buildAll();
+        HashMap<ObstaclesTypes, ArrayList<? extends Obstacle>> obstacles = new HashMap<>();
+        ArrayList<Tondeuse> tondeuses = (ArrayList<Tondeuse>) TondeuseBuilder.buildAll(obstacles);
 
         HashMap<Integer, HashMap<Integer, Case>> cases = new HashMap<>();
         for (int i = 1; i < 5; i++) {

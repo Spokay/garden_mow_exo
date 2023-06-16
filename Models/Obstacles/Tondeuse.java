@@ -1,9 +1,10 @@
-package Models;
+package Models.Obstacles;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
-public class Tondeuse{
+public class Tondeuse implements Obstacle{
     Integer tondeuseNumber;
     ArrayList<HashMap<String, Integer>> coords;
 
@@ -26,5 +27,16 @@ public class Tondeuse{
 
     public void setCoords(ArrayList<HashMap<String, Integer>> coords) {
         this.coords = coords;
+    }
+
+    @Override
+    public ArrayList<String> getObstacleAppearance() {
+        return new ArrayList<>(
+                Arrays.asList(
+                        "        ",
+                        "   T".concat(String.valueOf(this.getTondeuseNumber())).concat("   "),
+                        "        "
+                )
+        );
     }
 }
