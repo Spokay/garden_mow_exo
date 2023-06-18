@@ -3,10 +3,7 @@ package Utils;
 import Models.Obstacles.Obstacle;
 import Models.Obstacles.ObstaclesTypes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GardenUtils {
@@ -19,40 +16,39 @@ public class GardenUtils {
         // get randoms coords
         int xCoord = getRandomNumberUsingNextInt(1, xMaxValue + 1);
         int yCoord = getRandomNumberUsingNextInt(1, yMaxValue + 1);
-        // keep getting new coords until a valid one is available
-        while(isCrossingObstacle(xCoord, yCoord, obstaclesArray)){
-            xCoord = getRandomNumberUsingNextInt(1, xMaxValue + 1);
-            yCoord = getRandomNumberUsingNextInt(1, yMaxValue + 1);
-        }
-        // fill a Hashmap with the final coords
         HashMap<String, Integer> coords = new HashMap<>();
         coords.put("X", xCoord);
         coords.put("Y", yCoord);
+        // keep getting new coords until a valid one is available
+        while(isCrossingObstacle(coords, obstaclesArray)){
+            coords.replace("X", getRandomNumberUsingNextInt(1, xMaxValue + 1));
+            coords.replace("Y", getRandomNumberUsingNextInt(1, yMaxValue + 1));
+        }
+
         return coords;
     }
 
-    public static boolean isCrossingObstacle(Integer xCoord, Integer yCoord, HashMap<ObstaclesTypes, ArrayList<? extends Obstacle>> obstaclesArray){
-        System.out.println("ok");
+    public static boolean isCrossingObstacle(HashMap<String, Integer> coords, HashMap<ObstaclesTypes, ArrayList<? extends Obstacle>> obstaclesArray){
+
+        System.out.println(obstaclesArray);
         // initialize a boolean
-        AtomicBoolean isCrossingBool = new AtomicBoolean(false);
+        AtomicBoolean isCrossingBool = new AtomicBoolean();
         // loop through all obstacles to check is the given coordinate is crossing an obstacle
 
         // todo: STILL NOT WORKING
-        obstaclesArray.forEach(
-            (obstacleType, obstacleTypeArray) -> obstacleTypeArray.forEach(
-                    obstacle -> obstacle.getCoords().forEach(
-                            caseOccupied -> {
-                                System.out.println("ok");
-                                if (Objects.equals(caseOccupied.get("X"), xCoord) && Objects.equals(caseOccupied.get("Y"), yCoord)){
-                                    System.out.println(xCoord + ":" + yCoord);
-                                    isCrossingBool.set(true);
-                                } else {
-                                    System.out.println("not crossing");
-                                }
-                            }
+        for (Map.Entry<ObstaclesTypes, ArrayList<? extends Obstacle>> entry : obstaclesArray.entrySet()) {
+            ObstaclesTypes obstaclesTypes = entry.getKey();
+            ArrayList<? extends Obstacle> obstacles = entry.getValue();
+            isCrossingBool.set(obstacles.stream()
+                    .anyMatch(obstacle -> obstacle.getCoords()
+                            .stream().filter(caseOccupied -> caseOccupied.equals(coords)).isParallel()
                     )
-            )
-        );
+            );
+            System.out.println(isCrossingBool.get());
+            if (isCrossingBool.get()){
+                return isCrossingBool.get();
+            }
+        }
         return isCrossingBool.get();
     }
 }
