@@ -1,7 +1,8 @@
-package Utils;
+package util;
 
-import Models.Obstacles.Obstacle;
-import Models.Obstacles.ObstaclesTypes;
+import model.Case;
+import model.Obstacles.Obstacle;
+import model.Obstacles.ObstaclesTypes;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -12,24 +13,24 @@ public class GardenUtils {
         return random.nextInt(max - min) + min;
     }
 
-    public static HashMap<String, Integer> getRandomCoordsNotCrossingObstacle(Integer yMaxValue, Integer xMaxValue, HashMap<ObstaclesTypes, ArrayList<? extends Obstacle>> obstaclesArray){
+    public static int[][] getRandomCoordsNotCrossingObstacle(Integer yMaxValue, Integer xMaxValue, HashMap<Integer, HashMap<Integer, Case>> obstaclesArray){
         // get randoms coords
         int xCoord = getRandomNumberUsingNextInt(1, xMaxValue + 1);
         int yCoord = getRandomNumberUsingNextInt(1, yMaxValue + 1);
-        HashMap<String, Integer> coords = new HashMap<>();
-        coords.put("X", xCoord);
-        coords.put("Y", yCoord);
+
+        coords[yCoord][xCoord] = xCoord;
         // keep getting new coords until a valid one is available
         while(isCrossingObstacle(coords, obstaclesArray)){
-            coords.replace("X", getRandomNumberUsingNextInt(1, xMaxValue + 1));
-            coords.replace("Y", getRandomNumberUsingNextInt(1, yMaxValue + 1));
+            coords[yCoord] = getRandomNumberUsingNextInt(1, yMaxValue + 1);
+//            coords.replace("Y", getRandomNumberUsingNextInt(1, yMaxValue + 1));
         }
 
         return coords;
     }
 
-    public static boolean isCrossingObstacle(HashMap<String, Integer> coords, HashMap<ObstaclesTypes, ArrayList<? extends Obstacle>> obstaclesArray){
+    public static boolean isCrossingObstacle(int[][] coords, HashMap<Integer, HashMap<Integer, Case>> obstaclesArray){
 
+        Case[][] caseJardin = new Case[2][2];
         System.out.println(obstaclesArray);
         // initialize a boolean
         AtomicBoolean isCrossingBool = new AtomicBoolean();

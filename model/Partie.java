@@ -1,8 +1,8 @@
-package Models;
+package model;
 
-import Models.Obstacles.Obstacle;
-import Models.Obstacles.ObstaclesTypes;
-import Models.Obstacles.Tondeuse;
+import model.Obstacles.Obstacle;
+import model.Obstacles.ObstaclesTypes;
+import model.Obstacles.Tondeuse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,13 +10,13 @@ import java.util.HashMap;
 public class Partie {
     Integer xLength;
     Integer yLength;
-    HashMap<Integer, HashMap<Integer, Case>> cases;
+    Case[][] cases;
     ArrayList<Tondeuse> tondeuses;
     HashMap<ObstaclesTypes, ArrayList<Obstacle>> obstacles;
 
     ArrayList<Jardin> turnsGardens;
 
-    public Partie(Integer xLength, Integer yLength, ArrayList<Tondeuse> tondeuses, HashMap<Integer, HashMap<Integer, Case>> cases) {
+    public Partie(Integer xLength, Integer yLength, ArrayList<Tondeuse> tondeuses, Case[][] cases) {
         this.xLength = xLength;
         this.yLength = yLength;
         this.tondeuses = tondeuses;
@@ -25,6 +25,6 @@ public class Partie {
     }
 
     public Case getCaseByCoords(Integer xValue, Integer yValue) {
-        return this.cases.get(yValue).get(xValue);
+        return this.cases[yValue][xValue];
     }
 }

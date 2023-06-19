@@ -1,6 +1,6 @@
-package Controllers;
+package controller;
 
-import Models.Case;
+import model.Case;
 
 import java.util.HashMap;
 

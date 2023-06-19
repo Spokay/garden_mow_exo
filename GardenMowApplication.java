@@ -1,9 +1,4 @@
-import Controllers.PartieController;
-import Models.*;
-import Views.JardinStringGenerator;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import controller.PartieController;
 
 public class GardenMowApplication {
     public static void main(String[] args) {

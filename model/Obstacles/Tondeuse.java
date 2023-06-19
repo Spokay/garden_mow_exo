@@ -1,4 +1,4 @@
-package Models.Obstacles;
+package model.Obstacles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 public class Tondeuse implements Obstacle{
     Integer tondeuseNumber;
-    ArrayList<HashMap<String, Integer>> coords;
+    int[][] coords;
 
-    public Tondeuse(Integer tondeuseNumber, ArrayList<HashMap<String, Integer>> coords) {
+    public Tondeuse(Integer tondeuseNumber, int[][] coords) {
         this.tondeuseNumber = tondeuseNumber;
         this.coords = coords;
     }
@@ -21,11 +21,11 @@ public class Tondeuse implements Obstacle{
         this.tondeuseNumber = tondeuseNumber;
     }
 
-    public ArrayList<HashMap<String, Integer>> getCoords() {
+    public int[][] getCoords() {
         return coords;
     }
 
-    public void setCoords(ArrayList<HashMap<String, Integer>> coords) {
+    public void setCoords(int[][] coords) {
         this.coords = coords;
     }
 

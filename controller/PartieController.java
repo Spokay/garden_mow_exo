@@ -1,7 +1,7 @@
-package Controllers;
+package controller;
 
-import Builders.PartieBuilder;
-import Models.Partie;
+import builder.PartieBuilder;
+import model.Partie;
 
 public class PartieController {
 

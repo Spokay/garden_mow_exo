@@ -1,6 +1,6 @@
-package Models;
+package model;
 
-import Models.Obstacles.Obstacle;
+import model.Obstacles.Obstacle;
 
 import java.util.ArrayList;
 

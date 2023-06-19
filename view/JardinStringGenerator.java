@@ -1,8 +1,6 @@
-package Views;
+package view;
 
-import Models.Jardin;
-
-import java.util.Iterator;
+import model.Jardin;
 
 public class JardinStringGenerator {
     public static String generateJardinString(Jardin jardin){

@@ -1,4 +1,4 @@
-package Configuration;
+package configuration;
 
 public class GardenMowConfiguration {
     public static final Integer JARDIN_MAX_WIDTH = 3;
