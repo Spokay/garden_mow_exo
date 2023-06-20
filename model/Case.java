@@ -9,18 +9,16 @@ public abstract class Case{
 
     ArrayList<String> caseAppearance;
 
-    public Case(Integer yValue, Integer xValue) {
-        this.coords = new HashMap<>();
-        this.setCoords(xValue, yValue);
+    public Case(HashMap<String, Integer> coords) {
+        this.setCoords(coords);
     }
 
     public HashMap<String, Integer> getCoords() {
         return this.coords;
     }
 
-    public void setCoords(Integer xValue, Integer yValue) {
-        this.coords.put("X", xValue);
-        this.coords.put("Y", yValue);
+    public void setCoords(HashMap<String, Integer> coords) {
+        this.coords = coords;
     }
 
     public ArrayList<String> getCaseAppearance() {

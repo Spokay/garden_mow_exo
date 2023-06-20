@@ -6,11 +6,11 @@ import java.util.HashMap;
 
 public class Tondeuse implements Obstacle{
     Integer tondeuseNumber;
-    int[][] coords;
+    ArrayList<HashMap<String, Integer>> coords  = new ArrayList<>();
 
-    public Tondeuse(Integer tondeuseNumber, int[][] coords) {
+    public Tondeuse(Integer tondeuseNumber, HashMap<String, Integer> coordsOrigin) {
         this.tondeuseNumber = tondeuseNumber;
-        this.coords = coords;
+        this.coords.add(coordsOrigin);
     }
 
     public Integer getTondeuseNumber() {
@@ -21,11 +21,11 @@ public class Tondeuse implements Obstacle{
         this.tondeuseNumber = tondeuseNumber;
     }
 
-    public int[][] getCoords() {
+    public ArrayList<HashMap<String, Integer>> getCoords() {
         return coords;
     }
 
-    public void setCoords(int[][] coords) {
+    public void setCoords(ArrayList<HashMap<String, Integer>> coords) {
         this.coords = coords;
     }
 

@@ -1,11 +1,11 @@
 package builder;
 
 import configuration.GardenMowConfiguration;
-import model.*;
+import model.Case;
 import model.Obstacles.Tondeuse;
+import model.Partie;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class PartieBuilder {
     public static Partie build(){

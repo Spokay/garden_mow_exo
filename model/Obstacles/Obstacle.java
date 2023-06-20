@@ -7,5 +7,5 @@ public interface Obstacle {
     ArrayList<HashMap<String, Integer>> coords = new ArrayList<>();
 
     ArrayList<String> getObstacleAppearance();
-    int[][] getCoords();
+    ArrayList<HashMap<String, Integer>> getCoords();
 }
