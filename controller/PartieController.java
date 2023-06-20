@@ -4,8 +4,9 @@ import builder.PartieBuilder;
 import model.Partie;
 
 public class PartieController {
+    public Partie currentGame;
 
     public void startGame(){
-        Partie game = PartieBuilder.build();
+        this.currentGame = PartieBuilder.build();
     }
 }

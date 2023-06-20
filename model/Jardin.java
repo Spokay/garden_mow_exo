@@ -4,12 +4,12 @@ import java.util.HashMap;
 
 public class Jardin {
 
-    HashMap<Integer, HashMap<Integer, Case>> cases;
-    public Jardin(HashMap<Integer, HashMap<Integer, Case>> cases) {
+    Case[][] cases;
+    public Jardin(Case[][] cases) {
         this.cases = cases;
     }
 
-    public HashMap<Integer, HashMap<Integer, Case>> getCases() {
+    public Case[][] getCases() {
         return cases;
     }
 }
