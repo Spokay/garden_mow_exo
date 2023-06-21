@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class PartieBuilder {
     public static Partie build(){
-        ArrayList<Tondeuse> tondeuses = new ArrayList<>();
-        Case[][] cases = CaseBuilder.buildAll(tondeuses);
+        Case[][] cases = CaseBuilder.buildField();
+        ArrayList<Tondeuse> tondeuses = TondeuseBuilder.buildAll(cases);
 
         Jardin initialJardin = new Jardin(cases);
         ArrayList<Jardin> turnsGardens = new ArrayList<>();

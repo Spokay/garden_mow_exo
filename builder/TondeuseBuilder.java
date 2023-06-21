@@ -2,6 +2,7 @@ package builder;
 
 import configuration.GardenMowConfiguration;
 import model.Case;
+import model.CaseOccupee;
 import model.Obstacles.Tondeuse;
 import util.GardenUtils;
 
@@ -16,6 +17,10 @@ public class TondeuseBuilder {
             HashMap<String, Integer> coords = GardenUtils.getRandomCoordsNotCrossingObstacle(GardenMowConfiguration.JARDIN_MAX_HEIGHT, GardenMowConfiguration.JARDIN_MAX_WIDTH, cases);
             Tondeuse tondeuse = new Tondeuse(i + 1,coords);
             tondeuses.add(tondeuse);
+            tondeuse.getCoords().forEach(tondeuseCoords -> {
+                System.out.println(tondeuseCoords);
+                cases[tondeuseCoords.get("Y")][tondeuseCoords.get("X")] = new CaseOccupee(tondeuseCoords, tondeuse);
+            });
         });
         return tondeuses;
     }

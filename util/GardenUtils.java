@@ -30,7 +30,6 @@ public class GardenUtils {
     }
 
     public static boolean isCaseOccupee(HashMap<String, Integer> coords, Case[][] cases){
-        System.out.println(cases);
         // check whether the case is occupied or not
         return cases[coords.get("Y")][coords.get("X")] instanceof CaseOccupee;
     }
