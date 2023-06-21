@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Partie {
+    public boolean isFinished;
     private Integer xLength;
     private Integer yLength;
     private Case[][] cases;
@@ -23,6 +24,19 @@ public class Partie {
         this.cases = cases;
         this.turnsGardens = new ArrayList<>();
         this.turnsGardens.add(new Jardin(cases));
+    }
+
+    public void moveTondeusesToNearestCaseHerbe() {
+        this.tondeuses.forEach(tondeuse -> {
+            Case nextCase = searchForNearestCaseHerbe();
+            this.replacePreviousCaseByTondue();
+        });
+    }
+
+    private void replacePreviousCaseByTondue() {
+    }
+
+    private Case searchForNearestCaseHerbe() {
     }
 
     public Case getCaseByCoords(Integer xValue, Integer yValue) {
@@ -75,5 +89,13 @@ public class Partie {
 
     public void setTurnsGardens(ArrayList<Jardin> turnsGardens) {
         this.turnsGardens = turnsGardens;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 }
