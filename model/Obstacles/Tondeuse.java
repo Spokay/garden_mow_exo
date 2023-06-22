@@ -1,5 +1,7 @@
 package model.Obstacles;
 
+import model.Case;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,4 +41,22 @@ public class Tondeuse implements Obstacle{
                 )
         );
     }
+
+    public Case searchForNearestCaseHerbe(Case[][] cases) {
+        ArrayList<Case> nearestCaseInEachDirection = getNearestCaseHerbeEachDirection();
+        Case nearestCase;
+        nearestCaseInEachDirection.forEach(nearestCaseInThisDirection -> {
+            /*Integer diffY = ;
+            Integer diffX = ;
+            if (diffX + diffY < nearestCase){
+
+            }*/
+        });
+        return null;
+    }
+
+    private ArrayList<Case> getNearestCaseHerbeEachDirection() {
+        return null;
+    }
+
 }

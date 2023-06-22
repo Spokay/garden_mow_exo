@@ -28,15 +28,12 @@ public class Partie {
 
     public void moveTondeusesToNearestCaseHerbe() {
         this.tondeuses.forEach(tondeuse -> {
-            Case nextCase = searchForNearestCaseHerbe();
+            Case nextCase = tondeuse.searchForNearestCaseHerbe(this.cases);
             this.replacePreviousCaseByTondue();
         });
     }
 
     private void replacePreviousCaseByTondue() {
-    }
-
-    private Case searchForNearestCaseHerbe() {
     }
 
     public Case getCaseByCoords(Integer xValue, Integer yValue) {
