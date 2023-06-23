@@ -14,7 +14,7 @@ public class PartieManager {
     }
 
     private void nextTurn() {
-        this.currentGame.moveTondeusesToClosestCaseHerbe();
+        this.currentGame.moveTondeusesToNearestCaseHerbe();
     }
 
 

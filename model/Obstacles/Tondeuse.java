@@ -1,18 +1,21 @@
 package model.Obstacles;
 
 import model.Case;
+import model.CaseHerbe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Tondeuse implements Obstacle{
     Integer tondeuseNumber;
-    ArrayList<HashMap<String, Integer>> coords  = new ArrayList<>();
+    HashMap<String, Integer> coords  = new HashMap<>();
 
     public Tondeuse(Integer tondeuseNumber, HashMap<String, Integer> coordsOrigin) {
-        this.tondeuseNumber = tondeuseNumber;
-        this.coords.add(coordsOrigin);
+        this.setTondeuseNumber(tondeuseNumber);
+        this.setCoords(coordsOrigin);
     }
 
     public Integer getTondeuseNumber() {
@@ -23,11 +26,11 @@ public class Tondeuse implements Obstacle{
         this.tondeuseNumber = tondeuseNumber;
     }
 
-    public ArrayList<HashMap<String, Integer>> getCoords() {
+    public HashMap<String, Integer> getCoords() {
         return coords;
     }
 
-    public void setCoords(ArrayList<HashMap<String, Integer>> coords) {
+    public void setCoords(HashMap<String, Integer> coords) {
         this.coords = coords;
     }
 
@@ -42,21 +45,30 @@ public class Tondeuse implements Obstacle{
         );
     }
 
-    public Case searchForNearestCaseHerbe(Case[][] cases) {
-        ArrayList<Case> nearestCaseInEachDirection = getNearestCaseHerbeEachDirection();
-        Case nearestCase;
-        nearestCaseInEachDirection.forEach(nearestCaseInThisDirection -> {
-            /*Integer diffY = ;
-            Integer diffX = ;
-            if (diffX + diffY < nearestCase){
+    public Case searchForNearestCaseHerbe(Case[][] cases, Tondeuse tondeuse) {
+        HashMap<String, Integer> nearestCoords = new HashMap<>();
+        int currentMinDifference = 999;
+        ArrayList<Case> operatedCases = new ArrayList<>();
 
-            }*/
-        });
-        return null;
-    }
+        Arrays.stream(cases)
+                .forEach(caseArr -> Arrays.stream(caseArr)
+                        .filter(caseJ -> caseJ instanceof CaseHerbe)
+                        .forEach(operatedCases::add)
+                );
 
-    private ArrayList<Case> getNearestCaseHerbeEachDirection() {
-        return null;
+        System.out.println(operatedCases);
+
+        for (Case operatedCase : operatedCases) {
+            int totalDiffToCase = Math.abs(operatedCase.getCoords().get("Y") - tondeuse.getCoords().get("Y")) + Math.abs(operatedCase.getCoords().get("X") - tondeuse.getCoords().get("X"));
+
+            if (totalDiffToCase < currentMinDifference){
+                nearestCoords = operatedCase.getCoords();
+                currentMinDifference = totalDiffToCase;
+            }
+        }
+        System.out.println(currentMinDifference);
+
+        return cases[nearestCoords.get("Y")][nearestCoords.get("X")];
     }
 
 }

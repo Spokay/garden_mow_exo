@@ -28,7 +28,7 @@ public class Partie {
 
     public void moveTondeusesToNearestCaseHerbe() {
         this.tondeuses.forEach(tondeuse -> {
-            Case nextCase = tondeuse.searchForNearestCaseHerbe(this.cases);
+            Case nextCase = tondeuse.searchForNearestCaseHerbe(this.cases, tondeuse);
             this.replacePreviousCaseByTondue();
         });
     }

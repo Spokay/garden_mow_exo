@@ -28,4 +28,12 @@ public abstract class Case{
     public void setCaseAppearance(ArrayList<String> caseAppearance) {
         this.caseAppearance = caseAppearance;
     }
+
+    public CaseTypes getCaseType() {
+        return caseType;
+    }
+
+    public void setCaseType(CaseTypes caseType) {
+        this.caseType = caseType;
+    }
 }

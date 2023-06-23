@@ -15,12 +15,12 @@ public class TondeuseBuilder {
         // create and add to the array list instances of tondeuses
         IntStream.range(0, GardenMowConfiguration.NB_TONDEUSES).forEach(i -> {
             HashMap<String, Integer> coords = GardenUtils.getRandomCoordsNotCrossingObstacle(GardenMowConfiguration.JARDIN_MAX_HEIGHT, GardenMowConfiguration.JARDIN_MAX_WIDTH, cases);
+
             Tondeuse tondeuse = new Tondeuse(i + 1,coords);
+
             tondeuses.add(tondeuse);
-            tondeuse.getCoords().forEach(tondeuseCoords -> {
-                System.out.println(tondeuseCoords);
-                cases[tondeuseCoords.get("Y")][tondeuseCoords.get("X")] = new CaseOccupee(tondeuseCoords, tondeuse);
-            });
+
+            cases[tondeuse.getCoords().get("Y")][tondeuse.getCoords().get("X")] = new CaseOccupee(tondeuse.getCoords(), tondeuse);
         });
         return tondeuses;
     }
