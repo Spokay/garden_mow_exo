@@ -2,6 +2,8 @@ package model.Obstacles;
 
 import model.Case;
 import model.CaseHerbe;
+import model.CaseTypes;
+import util.GardenUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,18 +50,12 @@ public class Tondeuse implements Obstacle{
     public Case searchForNearestCaseHerbe(Case[][] cases, Tondeuse tondeuse) {
         HashMap<String, Integer> nearestCoords = new HashMap<>();
         int currentMinDifference = 999;
-        ArrayList<Case> operatedCases = new ArrayList<>();
+        ArrayList<Case> herbeCases = GardenUtils.getAllCaseByType(CaseTypes.CASE_HERBE, cases);
 
-        Arrays.stream(cases)
-                .forEach(caseArr -> Arrays.stream(caseArr)
-                        .filter(caseJ -> caseJ instanceof CaseHerbe)
-                        .forEach(operatedCases::add)
-                );
+        System.out.println(herbeCases);
 
-        System.out.println(operatedCases);
-
-        for (Case operatedCase : operatedCases) {
-            int totalDiffToCase = Math.abs(operatedCase.getCoords().get("Y") - tondeuse.getCoords().get("Y")) + Math.abs(operatedCase.getCoords().get("X") - tondeuse.getCoords().get("X"));
+        for (Case operatedCase : herbeCases) {
+            int totalDiffToCase = GardenUtils.getTondeuseYDiffToCase(tondeuse, operatedCase) + GardenUtils.getTondeuseXDiffToCase(tondeuse, operatedCase);
 
             if (totalDiffToCase < currentMinDifference){
                 nearestCoords = operatedCase.getCoords();

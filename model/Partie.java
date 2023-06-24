@@ -26,16 +26,6 @@ public class Partie {
         this.turnsGardens.add(new Jardin(cases));
     }
 
-    public void moveTondeusesToNearestCaseHerbe() {
-        this.tondeuses.forEach(tondeuse -> {
-            Case nextCase = tondeuse.searchForNearestCaseHerbe(this.cases, tondeuse);
-            this.replacePreviousCaseByTondue();
-        });
-    }
-
-    private void replacePreviousCaseByTondue() {
-    }
-
     public Case getCaseByCoords(Integer xValue, Integer yValue) {
         return this.cases[yValue][xValue];
     }

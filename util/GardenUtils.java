@@ -2,7 +2,11 @@ package util;
 
 import model.Case;
 import model.CaseOccupee;
+import model.CaseTypes;
+import model.Obstacles.Tondeuse;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -32,5 +36,22 @@ public class GardenUtils {
     public static boolean isCaseOccupee(HashMap<String, Integer> coords, Case[][] cases){
         // check whether the case is occupied or not
         return cases[coords.get("Y")][coords.get("X")] instanceof CaseOccupee;
+    }
+
+    public static ArrayList<Case> getAllCaseByType(CaseTypes caseType, Case[][] allCases){
+        ArrayList<Case> operatedCases = new ArrayList<>();
+        Arrays.stream(allCases)
+                .forEach(caseArr -> Arrays.stream(caseArr)
+                        .filter(caseJ -> caseJ.getCaseType().equals(caseType))
+                        .forEach(operatedCases::add)
+                );
+        return operatedCases;
+    }
+
+    public static Integer getTondeuseYDiffToCase(Tondeuse tondeuse, Case caseToCheck){
+        return Math.abs(caseToCheck.getCoords().get("Y") - tondeuse.getCoords().get("Y"));
+    }
+    public static Integer getTondeuseXDiffToCase(Tondeuse tondeuse, Case caseToCheck){
+        return Math.abs(caseToCheck.getCoords().get("X") - tondeuse.getCoords().get("X"));
     }
 }
