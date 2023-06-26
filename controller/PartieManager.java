@@ -1,14 +1,14 @@
 package controller;
 
 import builder.PartieBuilder;
-import model.Case;
-import model.CaseHerbe;
-import model.CaseTypes;
+import configuration.GardenMowConfiguration;
+import model.*;
 import model.Obstacles.Tondeuse;
-import model.Partie;
 import util.GardenUtils;
+import view.JardinStringGenerator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -17,15 +17,18 @@ public class PartieManager {
 
     public void startGame(){
         this.currentGame = PartieBuilder.build();
-        System.out.println(this.currentGame.isFinished);
-        while(!this.currentGame.isFinished){
+        while(!this.currentGame.isFinished || this.currentGame.currentTurn >= GardenMowConfiguration.MAX_TURNS){
             this.nextTurn();
+            this.currentGame.currentTurn += 1;
+            System.out.println(this.currentGame.isFinished);
         }
+        this.currentGame.getTurnsGardens().forEach(garden -> System.out.println(JardinStringGenerator.generateJardinString(garden)));
     }
 
     private void nextTurn() {
         this.moveTondeusesToNearestCaseHerbe();
-
+        System.out.println(Arrays.deepToString(this.currentGame.getCases()));
+//        this.currentGame.getTurnsGardens().add(new Jardin(this.currentGame.getCases()));
         if (this.checkPartieFinished()){
             this.currentGame.setFinished(true);
         }
@@ -33,17 +36,21 @@ public class PartieManager {
 
     public void moveTondeusesToNearestCaseHerbe() {
         this.currentGame.getTondeuses().forEach(tondeuse -> {
-            Case nextCase = tondeuse.searchForNearestCaseHerbe(this.currentGame.getCases(), tondeuse);
-            HashMap<String, Integer> tondeuseNewCoords = getTondeuseNextCoords(tondeuse, nextCase);
-            tondeuse.setCoords(tondeuseNewCoords);
+            Case nearestCaseHerbe = tondeuse.searchForNearestCaseHerbe(this.currentGame.getCases(), tondeuse);
+            System.out.println("ok");
             this.replacePreviousCaseByTondue(tondeuse.getCoords());
+            HashMap<String, Integer> tondeuseNewCoords = getTondeuseNextCoords(tondeuse, nearestCaseHerbe);
+            tondeuse.setCoords(tondeuseNewCoords);
+            this.currentGame.getCases()[tondeuseNewCoords.get("Y")][tondeuseNewCoords.get("X")] = new CaseOccupee(tondeuseNewCoords, tondeuse);
         });
     }
 
     private HashMap<String, Integer> getTondeuseNextCoords(Tondeuse tondeuse, Case nextCase) {
-
+        System.out.println(nextCase.getCoords());
         int yDiffToCase = GardenUtils.getTondeuseYDiffToCase(tondeuse, nextCase);
         int xDiffToCase = GardenUtils.getTondeuseXDiffToCase(tondeuse, nextCase);
+        System.out.println(tondeuse.getCoords());
+        System.out.println(xDiffToCase + " | " + yDiffToCase);
         boolean isRight = xDiffToCase > 0;
         boolean isLeft = xDiffToCase < 0;
         boolean isTop = yDiffToCase > 0;
@@ -69,7 +76,7 @@ public class PartieManager {
 
 
     private void replacePreviousCaseByTondue(HashMap<String, Integer> previousCoords) {
-        this.currentGame.getCases()[previousCoords.get("Y")][previousCoords.get("X")] = new CaseHerbe(previousCoords);
+        this.currentGame.getCases()[previousCoords.get("Y")][previousCoords.get("X")] = new CaseTondue(previousCoords);
     }
 
     public boolean checkPartieFinished(){

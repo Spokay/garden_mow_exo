@@ -22,6 +22,8 @@ public class CaseBuilder {
                 .forEach(row -> IntStream.range(0, GardenMowConfiguration.JARDIN_MAX_WIDTH)
                         .forEach(column -> {
                             HashMap<String, Integer> coords = new HashMap<>();
+                            coords.put("Y", row);
+                            coords.put("X", column);
                             cases[row][column] = new CaseHerbe(coords);
                         })
                 );

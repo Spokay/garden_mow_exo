@@ -12,8 +12,9 @@ import java.util.Random;
 
 public class GardenUtils {
     public static int getRandomNumberUsingNextInt(int min, int max) {
-        Random random = new Random();
-        return random.nextInt(max - min) + min;
+        Random r = new Random();
+        return r.nextInt((max - min) - 1) + min;
+
     }
 
     public static HashMap<String, Integer> getRandomCoordsNotCrossingObstacle(Integer yMaxValue, Integer xMaxValue, Case[][] cases){
@@ -49,9 +50,9 @@ public class GardenUtils {
     }
 
     public static Integer getTondeuseYDiffToCase(Tondeuse tondeuse, Case caseToCheck){
-        return Math.abs(caseToCheck.getCoords().get("Y") - tondeuse.getCoords().get("Y"));
+        return (caseToCheck.getCoords().get("Y") - tondeuse.getCoords().get("Y"));
     }
     public static Integer getTondeuseXDiffToCase(Tondeuse tondeuse, Case caseToCheck){
-        return Math.abs(caseToCheck.getCoords().get("X") - tondeuse.getCoords().get("X"));
+        return (caseToCheck.getCoords().get("X") - tondeuse.getCoords().get("X"));
     }
 }

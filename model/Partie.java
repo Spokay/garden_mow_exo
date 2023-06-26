@@ -16,6 +16,7 @@ public class Partie {
     private HashMap<ObstaclesTypes, ArrayList<Obstacle>> obstacles;
 
     private ArrayList<Jardin> turnsGardens;
+    public Integer currentTurn = 1;
 
     public Partie(Integer xLength, Integer yLength, ArrayList<Tondeuse> tondeuses, Case[][] cases) {
         this.xLength = xLength;
@@ -85,4 +86,5 @@ public class Partie {
     public void setFinished(boolean finished) {
         isFinished = finished;
     }
+
 }

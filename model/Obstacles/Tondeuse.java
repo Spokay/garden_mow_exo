@@ -52,17 +52,15 @@ public class Tondeuse implements Obstacle{
         int currentMinDifference = 999;
         ArrayList<Case> herbeCases = GardenUtils.getAllCaseByType(CaseTypes.CASE_HERBE, cases);
 
-        System.out.println(herbeCases);
 
         for (Case operatedCase : herbeCases) {
-            int totalDiffToCase = GardenUtils.getTondeuseYDiffToCase(tondeuse, operatedCase) + GardenUtils.getTondeuseXDiffToCase(tondeuse, operatedCase);
+            int totalDiffToCase = Math.abs(GardenUtils.getTondeuseYDiffToCase(tondeuse, operatedCase) - GardenUtils.getTondeuseXDiffToCase(tondeuse, operatedCase));
 
             if (totalDiffToCase < currentMinDifference){
                 nearestCoords = operatedCase.getCoords();
                 currentMinDifference = totalDiffToCase;
             }
         }
-        System.out.println(currentMinDifference);
 
         return cases[nearestCoords.get("Y")][nearestCoords.get("X")];
     }
