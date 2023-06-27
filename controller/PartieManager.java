@@ -53,11 +53,32 @@ public class PartieManager {
         System.out.println(xDiffToCase + " | " + yDiffToCase);
         boolean isRight = xDiffToCase > 0;
         boolean isLeft = xDiffToCase < 0;
-        boolean isTop = yDiffToCase > 0;
-        boolean isBottom = yDiffToCase < 0;
+        boolean isTop = yDiffToCase < 0;
+        boolean isBottom = yDiffToCase > 0;
 
-        int xNextCoord = isRight ? tondeuse.getCoords().get("X") + 1 : isLeft ? tondeuse.getCoords().get("X") - 1 : tondeuse.getCoords().get("X");
-        int yNextCoord = isTop ? tondeuse.getCoords().get("Y") + 1 : isBottom ? tondeuse.getCoords().get("Y") - 1 : tondeuse.getCoords().get("Y");
+
+        int xNextCoord;
+        int yNextCoord;
+
+        if (isRight){
+            System.out.println((tondeuse.getCoords().get("X") + 1));
+            xNextCoord = (tondeuse.getCoords().get("X") + 1);
+        } else if (isLeft) {
+            System.out.println((tondeuse.getCoords().get("X") - 1));
+            xNextCoord = (tondeuse.getCoords().get("X") - 1);
+        }else{
+            System.out.println((tondeuse.getCoords().get("X")));
+            xNextCoord = tondeuse.getCoords().get("X");
+        }
+        if (isTop){
+            System.out.println((tondeuse.getCoords().get("Y") - 1));
+            yNextCoord = (tondeuse.getCoords().get("Y") - 1);
+        } else if (isBottom) {
+            System.out.println((tondeuse.getCoords().get("Y") + 1));
+            yNextCoord = (tondeuse.getCoords().get("Y") + 1);
+        }else{
+            yNextCoord = tondeuse.getCoords().get("Y");
+        }
 
         // check if the tondeuse can go on the case or is blocked
         boolean isCollapsing = this.currentGame.getCases()[yNextCoord][xNextCoord].getCaseType().equals(CaseTypes.CASE_OCCUPEE);
