@@ -1,5 +1,6 @@
 package controller;
 
+import builder.CaseBuilder;
 import builder.PartieBuilder;
 import configuration.GardenMowConfiguration;
 import model.*;
@@ -16,33 +17,47 @@ public class PartieManager {
     public Partie currentGame;
 
     public void startGame(){
+        // build the game
         this.currentGame = PartieBuilder.build();
+
+        // move the tondeuses until the game is finished (no CaseHerbeRemaining) or the max number of turn has been reached
         while(!this.currentGame.isFinished || this.currentGame.currentTurn >= GardenMowConfiguration.MAX_TURNS){
             this.nextTurn();
             this.currentGame.currentTurn += 1;
             System.out.println(this.currentGame.isFinished);
         }
+        // print all the gardens turn at the end of the game
         this.currentGame.getTurnsGardens().forEach(garden -> System.out.println(JardinStringGenerator.generateJardinString(garden)));
     }
 
     private void nextTurn() {
-        this.moveTondeusesToNearestCaseHerbe();
+        System.out.println("newTurn");
         System.out.println(Arrays.deepToString(this.currentGame.getCases()));
-//        this.currentGame.getTurnsGardens().add(new Jardin(this.currentGame.getCases()));
+
+        // make a copy of the case at this turn and build a new Jardin
+        Case[][] turnCases = CaseBuilder.buildCopyOfCases(this.moveTondeusesToNearestCaseHerbe());
+        Jardin turnGarden = new Jardin(turnCases);
+
+        // add the Jardin to the array of turns
+        this.currentGame.getTurnsGardens().add(this.currentGame.currentTurn, turnGarden);
+
+        // check if the game is finished
         if (this.checkPartieFinished()){
             this.currentGame.setFinished(true);
         }
     }
 
-    public void moveTondeusesToNearestCaseHerbe() {
+    public Case[][] moveTondeusesToNearestCaseHerbe() {
+        // loop over every tondeuses
         this.currentGame.getTondeuses().forEach(tondeuse -> {
             Case nearestCaseHerbe = tondeuse.searchForNearestCaseHerbe(this.currentGame.getCases(), tondeuse);
-            System.out.println("ok");
             this.replacePreviousCaseByTondue(tondeuse.getCoords());
             HashMap<String, Integer> tondeuseNewCoords = getTondeuseNextCoords(tondeuse, nearestCaseHerbe);
             tondeuse.setCoords(tondeuseNewCoords);
             this.currentGame.getCases()[tondeuseNewCoords.get("Y")][tondeuseNewCoords.get("X")] = new CaseOccupee(tondeuseNewCoords, tondeuse);
         });
+
+        return this.currentGame.getCases();
     }
 
     private HashMap<String, Integer> getTondeuseNextCoords(Tondeuse tondeuse, Case nextCase) {
@@ -57,26 +72,27 @@ public class PartieManager {
         boolean isBottom = yDiffToCase > 0;
 
 
-        int xNextCoord;
-        int yNextCoord;
+        Integer xNextCoord;
+        Integer yNextCoord;
 
         if (isRight){
-            System.out.println((tondeuse.getCoords().get("X") + 1));
-            xNextCoord = (tondeuse.getCoords().get("X") + 1);
+            System.out.println(tondeuse.getCoords().get("X") + 1);
+            xNextCoord = tondeuse.getCoords().get("X") + 1;
         } else if (isLeft) {
-            System.out.println((tondeuse.getCoords().get("X") - 1));
-            xNextCoord = (tondeuse.getCoords().get("X") - 1);
+            System.out.println(tondeuse.getCoords().get("X") - 1);
+            xNextCoord = tondeuse.getCoords().get("X") - 1;
         }else{
-            System.out.println((tondeuse.getCoords().get("X")));
+            System.out.println(tondeuse.getCoords().get("X"));
             xNextCoord = tondeuse.getCoords().get("X");
         }
         if (isTop){
-            System.out.println((tondeuse.getCoords().get("Y") - 1));
+            System.out.println(tondeuse.getCoords().get("Y") - 1);
             yNextCoord = (tondeuse.getCoords().get("Y") - 1);
         } else if (isBottom) {
-            System.out.println((tondeuse.getCoords().get("Y") + 1));
+            System.out.println(tondeuse.getCoords().get("Y") + 1);
             yNextCoord = (tondeuse.getCoords().get("Y") + 1);
         }else{
+            System.out.println(tondeuse.getCoords().get("Y"));
             yNextCoord = tondeuse.getCoords().get("Y");
         }
 
