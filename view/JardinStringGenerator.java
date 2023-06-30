@@ -1,10 +1,9 @@
 package view;
 
 import configuration.GardenMowConfiguration;
-import model.Case;
+import model.Case.Case;
 import model.Jardin;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class JardinStringGenerator {
@@ -36,5 +35,10 @@ public class JardinStringGenerator {
         separatorBuilder.append("-\n");
 
         return separatorBuilder.toString();
+    }
+
+    public static String generateTurnString(int i) {
+        return getSeparator() +
+                "TURN " + i;
     }
 }

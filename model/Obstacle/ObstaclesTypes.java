@@ -1,4 +1,4 @@
-package model.Obstacles;
+package model.Obstacle;
 
 public enum ObstaclesTypes {
     TONDEUSE

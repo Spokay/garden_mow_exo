@@ -1,8 +1,9 @@
 package model;
 
-import model.Obstacles.Obstacle;
-import model.Obstacles.ObstaclesTypes;
-import model.Obstacles.Tondeuse;
+import model.Case.Case;
+import model.Obstacle.Obstacle;
+import model.Obstacle.ObstaclesTypes;
+import model.Obstacle.Tondeuse;
 
 import java.util.ArrayList;
 import java.util.HashMap;

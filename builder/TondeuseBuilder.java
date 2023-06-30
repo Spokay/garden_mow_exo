@@ -1,9 +1,9 @@
 package builder;
 
 import configuration.GardenMowConfiguration;
-import model.Case;
-import model.CaseOccupee;
-import model.Obstacles.Tondeuse;
+import model.Case.Case;
+import model.Case.CaseOccupee;
+import model.Obstacle.Tondeuse;
 import util.GardenUtils;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package model;
+package model.Case;
 
 import java.util.ArrayList;
 import java.util.Arrays;

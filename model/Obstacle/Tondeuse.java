@@ -1,15 +1,12 @@
-package model.Obstacles;
+package model.Obstacle;
 
-import model.Case;
-import model.CaseHerbe;
-import model.CaseTypes;
+import model.Case.Case;
+import model.Case.CaseTypes;
 import util.GardenUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Tondeuse implements Obstacle{
     Integer tondeuseNumber;

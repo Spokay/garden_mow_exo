@@ -1,9 +1,9 @@
 package util;
 
-import model.Case;
-import model.CaseOccupee;
-import model.CaseTypes;
-import model.Obstacles.Tondeuse;
+import model.Case.Case;
+import model.Case.CaseOccupee;
+import model.Case.CaseTypes;
+import model.Obstacle.Tondeuse;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package model;
+package model.Case;
 
 public enum CaseTypes {
     CASE_HERBE,

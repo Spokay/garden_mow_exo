@@ -1,12 +1,9 @@
 package builder;
 
 import configuration.GardenMowConfiguration;
-import model.Case;
-import model.CaseHerbe;
-import model.CaseOccupee;
-import model.Obstacles.Tondeuse;
+import model.Case.Case;
+import model.Case.CaseHerbe;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.IntStream;

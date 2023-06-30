@@ -1,4 +1,4 @@
-package model.Obstacles;
+package model.Obstacle;
 
 import java.util.ArrayList;
 import java.util.HashMap;

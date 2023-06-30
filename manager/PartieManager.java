@@ -4,9 +4,13 @@ import builder.CaseBuilder;
 import builder.PartieBuilder;
 import configuration.GardenMowConfiguration;
 import model.*;
-import model.Obstacles.Tondeuse;
+import model.Case.Case;
+import model.Case.CaseOccupee;
+import model.Case.CaseTondue;
+import model.Case.CaseTypes;
+import model.Obstacle.Tondeuse;
 import util.GardenUtils;
-import view.JardinStringGenerator;
+import view.GardenPrinter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,24 +23,26 @@ public class PartieManager {
         this.currentGame = PartieBuilder.build();
 
         // move the tondeuses until the game is finished (no CaseHerbeRemaining) or the max number of turn has been reached
-        while(!this.currentGame.isFinished || this.currentGame.currentTurn >= GardenMowConfiguration.MAX_TURNS){
+        while(!this.currentGame.isFinished || this.currentGame.currentTurn > GardenMowConfiguration.MAX_TURNS){
             this.nextTurn();
             this.currentGame.currentTurn += 1;
         }
-        // print all the gardens turn at the end of the game
-        this.currentGame.getTurnsGardens().forEach(garden -> System.out.println(JardinStringGenerator.generateJardinString(garden)));
+
+
+        // print a report at the end of the game
+        GardenPrinter.printGameReport(this.currentGame.getTurnsGardens(), this.currentGame.isFinished);
     }
+
+
 
     private void nextTurn() {
 
         // make a copy of the case at this turn and build a new Jardin
         Case[][] turnCases = CaseBuilder.buildCopyOfCases(this.moveTondeusesToNearestCaseHerbe());
-        Jardin turnGarden = new Jardin(turnCases);
+        Jardin turnGarden = new Jardin(turnCases, this.currentGame.currentTurn);
 
         // add the Jardin to the array of turns
         this.currentGame.getTurnsGardens().add(this.currentGame.currentTurn, turnGarden);
-
-        // check if the game is finished
     }
 
     public Case[][] moveTondeusesToNearestCaseHerbe() {
@@ -110,6 +116,5 @@ public class PartieManager {
         ArrayList<Case> herbeCases = GardenUtils.getAllCaseByType(CaseTypes.CASE_HERBE, this.currentGame.getCases());
         return herbeCases.isEmpty();
     }
-
 
 }

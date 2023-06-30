@@ -1,6 +1,6 @@
-package model;
+package model.Case;
 
-import model.Obstacles.Obstacle;
+import model.Obstacle.Obstacle;
 
 import java.util.ArrayList;
 import java.util.HashMap;

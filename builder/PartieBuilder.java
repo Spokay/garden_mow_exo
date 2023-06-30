@@ -1,9 +1,9 @@
 package builder;
 
 import configuration.GardenMowConfiguration;
-import model.Case;
+import model.Case.Case;
 import model.Jardin;
-import model.Obstacles.Tondeuse;
+import model.Obstacle.Tondeuse;
 import model.Partie;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class PartieBuilder {
         Case[][] cases = CaseBuilder.buildField();
         ArrayList<Tondeuse> tondeuses = TondeuseBuilder.buildAll(cases);
 
-        Jardin initialJardin = new Jardin(CaseBuilder.buildCopyOfCases(cases));
+        Jardin initialJardin = new Jardin(CaseBuilder.buildCopyOfCases(cases), 0);
         ArrayList<Jardin> turnsGardens = new ArrayList<>();
         turnsGardens.add(initialJardin);
 
