@@ -18,13 +18,12 @@ public class Partie {
     private ArrayList<Jardin> turnsGardens;
     public Integer currentTurn = 1;
 
-    public Partie(Integer xLength, Integer yLength, ArrayList<Tondeuse> tondeuses, Case[][] cases) {
+    public Partie(Integer xLength, Integer yLength, ArrayList<Tondeuse> tondeuses, Case[][] cases,ArrayList<Jardin> turnsGarden) {
         this.xLength = xLength;
         this.yLength = yLength;
         this.tondeuses = tondeuses;
         this.cases = cases;
-        this.turnsGardens = new ArrayList<>();
-        this.turnsGardens.add(new Jardin(cases));
+        this.turnsGardens = turnsGarden;
     }
 
     public Case getCaseByCoords(Integer xValue, Integer yValue) {

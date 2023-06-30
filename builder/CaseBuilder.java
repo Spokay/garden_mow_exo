@@ -34,8 +34,6 @@ public class CaseBuilder {
     }
 
     public static Case[][] buildCopyOfCases(Case[][] reference){
-        // todo: only copies the first array layer
-
         return Arrays.stream(reference).map(Case[]::clone).toArray(Case[][]::new);
     }
 

@@ -48,16 +48,22 @@ public class Tondeuse implements Obstacle{
     }
 
     public Case searchForNearestCaseHerbe(Case[][] cases, Tondeuse tondeuse) {
+        // initialize a hashmap
         HashMap<String, Integer> nearestCoords = new HashMap<>();
+
+        // set the min coords found to an unreachable integer
         int currentMinDifference = 999;
+
+        // get all the remaining CaseHerbe
         ArrayList<Case> herbeCases = GardenUtils.getAllCaseByType(CaseTypes.CASE_HERBE, cases);
 
 
         for (Case operatedCase : herbeCases) {
+            // compare the tondeuse coords total difference to each CaseHerbe
             int totalDiffToCase = Math.abs(GardenUtils.getTondeuseYDiffToCase(tondeuse, operatedCase) - GardenUtils.getTondeuseXDiffToCase(tondeuse, operatedCase));
 
+            // When a coord is the nearest found yet reset the variables with the new smaller difference value and store the nearest coords
             if (totalDiffToCase < currentMinDifference){
-                System.out.println("operatedCase coords : " + operatedCase.getCoords());
                 nearestCoords = operatedCase.getCoords();
                 currentMinDifference = totalDiffToCase;
             }

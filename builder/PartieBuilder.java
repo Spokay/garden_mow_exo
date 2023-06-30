@@ -13,10 +13,10 @@ public class PartieBuilder {
         Case[][] cases = CaseBuilder.buildField();
         ArrayList<Tondeuse> tondeuses = TondeuseBuilder.buildAll(cases);
 
-        Jardin initialJardin = new Jardin(cases);
+        Jardin initialJardin = new Jardin(CaseBuilder.buildCopyOfCases(cases));
         ArrayList<Jardin> turnsGardens = new ArrayList<>();
+        turnsGardens.add(initialJardin);
 
-
-        return new Partie(GardenMowConfiguration.JARDIN_MAX_WIDTH, GardenMowConfiguration.JARDIN_MAX_HEIGHT, tondeuses, cases);
+        return new Partie(GardenMowConfiguration.JARDIN_MAX_WIDTH, GardenMowConfiguration.JARDIN_MAX_HEIGHT, tondeuses, cases, turnsGardens);
     }
 }
