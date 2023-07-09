@@ -8,7 +8,7 @@ public class CaseTondue extends Case{
 
     public CaseTondue(HashMap<String, Integer> coords) {
         super(coords);
-        this.caseType = CaseTypes.CASE_TONDUE;
+        this.caseType = CaseStatus.CASE_TONDUE;
         ArrayList<String> appearances = new ArrayList<>(
                 Arrays.asList(
                         "        ",

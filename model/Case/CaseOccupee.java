@@ -11,7 +11,7 @@ public class CaseOccupee extends Case{
 
     public CaseOccupee(HashMap<String, Integer> coords, Obstacle obstacle) {
         super(coords);
-        this.caseType = CaseTypes.CASE_OCCUPEE;
+        this.caseType = CaseStatus.CASE_OCCUPEE;
         this.setObstacle(obstacle);
         ArrayList<String> appearances = this.obstacle.getObstacleAppearance();
         this.setCaseAppearance(appearances);

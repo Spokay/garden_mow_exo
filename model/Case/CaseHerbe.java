@@ -8,7 +8,7 @@ public class CaseHerbe extends Case{
 
     public CaseHerbe(HashMap<String, Integer> coords) {
         super(coords);
-        this.caseType = CaseTypes.CASE_HERBE;
+        this.caseType = CaseStatus.CASE_HERBE;
         ArrayList<String> appearances = new ArrayList<>(
                 Arrays.asList(
                         "XXXXXXXX",

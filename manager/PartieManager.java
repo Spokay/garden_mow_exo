@@ -7,7 +7,7 @@ import model.*;
 import model.Case.Case;
 import model.Case.CaseOccupee;
 import model.Case.CaseTondue;
-import model.Case.CaseTypes;
+import model.Case.CaseStatus;
 import model.Obstacle.Tondeuse;
 import util.GardenUtils;
 import view.GardenPrinter;
@@ -18,60 +18,41 @@ import java.util.HashMap;
 public class PartieManager {
     public Partie currentGame;
 
+    public static Case[][] currentGrid;
+
     public void startGame(){
         // build the game
-        this.currentGame = PartieBuilder.build();
+        currentGame = PartieBuilder.build();
 
+        PartieManager.currentGrid = currentGame.getCases();
         // move the tondeuses until the game is finished (no CaseHerbeRemaining) or the max number of turn has been reached
-        while(!this.currentGame.isFinished || this.currentGame.currentTurn > GardenMowConfiguration.MAX_TURNS){
-            this.nextTurn();
-            this.currentGame.currentTurn += 1;
+        while(isNotFinishedOrMaxTurnReached()){
+            nextTurn();
+            currentGame.currentTurn += 1;
         }
 
-
         // print a report at the end of the game
-        GardenPrinter.printGameReport(this.currentGame.getTurnsGardens(), this.currentGame.isFinished);
+        GardenPrinter.printGameReport(currentGame.getTurnsGardens(), currentGame.isFinished);
     }
 
 
 
     private void nextTurn() {
-
         // make a copy of the case at this turn and build a new Jardin
-        Case[][] turnCases = CaseBuilder.buildCopyOfCases(this.moveTondeusesToNearestCaseHerbe());
-        Jardin turnGarden = new Jardin(turnCases, this.currentGame.currentTurn);
+        Case[][] turnCases = CaseBuilder.buildCopyOfCases(moveTondeusesToNearestCaseHerbe());
+        Jardin turnGarden = new Jardin(turnCases, currentGame.currentTurn);
 
         // add the Jardin to the array of turns
-        this.currentGame.getTurnsGardens().add(this.currentGame.currentTurn, turnGarden);
+        currentGame.getTurnsGardens().add(currentGame.currentTurn, turnGarden);
     }
 
     public Case[][] moveTondeusesToNearestCaseHerbe() {
         // loop over every tondeuses
-        this.currentGame.getTondeuses()
+        currentGame.getTondeuses()
             .stream()
-            .takeWhile(tondeuse -> !this.checkPartieFinished())
-            .forEach(tondeuse -> {
-                // search for the nearest CaseHerbe
-                Case nearestCaseHerbe = tondeuse.searchForNearestCaseHerbe(this.currentGame.getCases(), tondeuse);
-
-                // replace the case where the tondeuse was located before by a CaseTondue
-                replacePreviousCaseByTondue(tondeuse.getCoords());
-
-                // new coords for the tondeuse to move towards the nearest case
-                HashMap<String, Integer> tondeuseNewCoords = getTondeuseNextCoords(tondeuse, nearestCaseHerbe);
-
-                // change the tondeuse coords to the fresh coords retrieved
-                tondeuse.setCoords(tondeuseNewCoords);
-
-                // set the new case to type CaseOccupee
-                this.currentGame.getCases()[tondeuseNewCoords.get("Y")][tondeuseNewCoords.get("X")] = new CaseOccupee(tondeuseNewCoords, tondeuse);
-
-                // set the finished boolean to true if the game is done
-                if (this.checkPartieFinished()){
-                    this.currentGame.setFinished(true);
-                }
-        });
-        return this.currentGame.getCases();
+            .takeWhile(tondeuse -> !checkPartieFinished())
+            .forEach(this::moveTondeuseToNearestCaseHerbe);
+        return currentGame.getCases();
     }
 
     private HashMap<String, Integer> getTondeuseNextCoords(Tondeuse tondeuse, Case nearestCase) {
@@ -90,7 +71,7 @@ public class PartieManager {
         int yNextCoord = isTop ? tondeuse.getCoords().get("Y") - 1 : isBottom ? tondeuse.getCoords().get("Y") + 1 : tondeuse.getCoords().get("Y");
 
         // check if the tondeuse can go on the case or is blocked
-        boolean isCollapsing = this.currentGame.getCases()[yNextCoord][xNextCoord].getCaseType().equals(CaseTypes.CASE_OCCUPEE);
+        boolean isCollapsing = currentGame.getCases()[yNextCoord][xNextCoord].getCaseType().equals(CaseStatus.CASE_OCCUPEE);
 
         HashMap<String, Integer> nextCoords = new HashMap<>();
 
@@ -108,13 +89,38 @@ public class PartieManager {
 
     private void replacePreviousCaseByTondue(HashMap<String, Integer> previousCoords) {
         // replace the case where the tondeuse passed by a CaseTondue
-        this.currentGame.getCases()[previousCoords.get("Y")][previousCoords.get("X")] = new CaseTondue(previousCoords);
+        currentGame.getCases()[previousCoords.get("Y")][previousCoords.get("X")] = new CaseTondue(previousCoords);
     }
 
     public boolean checkPartieFinished(){
         // check if the game if finished (if no CaseHerbe are in the garden)
-        ArrayList<Case> herbeCases = GardenUtils.getAllCaseByType(CaseTypes.CASE_HERBE, this.currentGame.getCases());
+        ArrayList<Case> herbeCases = GardenUtils.getAllCaseByType(CaseStatus.CASE_HERBE, currentGame.getCases());
         return herbeCases.isEmpty();
+    }
+
+    public void moveTondeuseToNearestCaseHerbe(Tondeuse tondeuse){
+        Case nearestCaseHerbe = tondeuse.searchForNearestCaseHerbe(currentGame.getCases(), tondeuse);
+
+        // replace the case where the tondeuse was located before by a CaseTondue
+        replacePreviousCaseByTondue(tondeuse.getCoords());
+
+        // new coords for the tondeuse to move towards the nearest case
+        HashMap<String, Integer> tondeuseNewCoords = getTondeuseNextCoords(tondeuse, nearestCaseHerbe);
+
+        // change the tondeuse coords to the fresh coords retrieved
+        tondeuse.setCoords(tondeuseNewCoords);
+
+        // set the new case to type CaseOccupee
+        currentGame.getCases()[tondeuseNewCoords.get("Y")][tondeuseNewCoords.get("X")] = new CaseOccupee(tondeuseNewCoords, tondeuse);
+
+        // set the finished boolean to true if the game is done
+        if (checkPartieFinished()){
+            currentGame.setFinished(true);
+        }
+    }
+
+    private boolean isNotFinishedOrMaxTurnReached(){
+        return !checkPartieFinished() || currentGame.currentTurn >= GardenMowConfiguration.MAX_TURNS;
     }
 
 }

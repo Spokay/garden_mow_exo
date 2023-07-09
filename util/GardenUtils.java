@@ -2,7 +2,7 @@ package util;
 
 import model.Case.Case;
 import model.Case.CaseOccupee;
-import model.Case.CaseTypes;
+import model.Case.CaseStatus;
 import model.Obstacle.Tondeuse;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class GardenUtils {
         return cases[coords.get("Y")][coords.get("X")] instanceof CaseOccupee;
     }
 
-    public static ArrayList<Case> getAllCaseByType(CaseTypes caseType, Case[][] allCases){
+    public static ArrayList<Case> getAllCaseByType(CaseStatus caseType, Case[][] allCases){
         ArrayList<Case> operatedCases = new ArrayList<>();
         Arrays.stream(allCases)
                 .forEach(caseArr -> Arrays.stream(caseArr)

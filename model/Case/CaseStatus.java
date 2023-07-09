@@ -1,6 +1,6 @@
 package model.Case;
 
-public enum CaseTypes {
+public enum CaseStatus {
     CASE_HERBE,
     CASE_TONDUE,
     CASE_OCCUPEE

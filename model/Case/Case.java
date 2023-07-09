@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Case{
-    CaseTypes caseType;
+    CaseStatus caseType;
     HashMap<String, Integer> coords;
-
     ArrayList<String> caseAppearance;
-
     public Case(HashMap<String, Integer> coords) {
         this.setCoords(coords);
     }
@@ -29,11 +27,11 @@ public abstract class Case{
         this.caseAppearance = caseAppearance;
     }
 
-    public CaseTypes getCaseType() {
+    public CaseStatus getCaseType() {
         return caseType;
     }
 
-    public void setCaseType(CaseTypes caseType) {
+    public void setCaseType(CaseStatus caseType) {
         this.caseType = caseType;
     }
 }

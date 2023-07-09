@@ -1,7 +1,7 @@
 package model.Obstacle;
 
 import model.Case.Case;
-import model.Case.CaseTypes;
+import model.Case.CaseStatus;
 import util.GardenUtils;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class Tondeuse implements Obstacle{
         int currentMinDifference = 999;
 
         // get all the remaining CaseHerbe
-        ArrayList<Case> herbeCases = GardenUtils.getAllCaseByType(CaseTypes.CASE_HERBE, cases);
+        ArrayList<Case> herbeCases = GardenUtils.getAllCaseByType(CaseStatus.CASE_HERBE, cases);
 
 
         for (Case operatedCase : herbeCases) {
